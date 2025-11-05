@@ -1,0 +1,643 @@
+/* Custom Properties for a stark, monolithic theme */
+:root {
+    --primary-bg: #101010; /* Very dark, almost black */
+    --secondary-bg: #1A1A1A; /* Slightly lighter for panels */
+    --text-color: #D0D0D0; /* Off-white for readability */
+    --accent-color: #66CCFF; /* Muted cyan-blue for data/highlights */
+    --danger-color: #FF5555; /* Muted red for warnings/cowards */
+    --border-dark: #333333; /* Darker border */
+    --border-light: #555555; /* Lighter border for contrast */
+    --shadow-subtle: rgba(0, 0, 0, 0.5); /* Deep, soft shadow */
+    --glow-effect: rgba(102, 204, 255, 0.2); /* Soft cyan glow */
+    --danger-glow: rgba(255, 85, 85, 0.2); /* Soft red danger glow */
+
+    /* Fonts for an ancient-digital, imposing feel */
+    --font-heading: 'Major Mono Display', monospace; /* Bold, geometric monospace for titles */
+    --font-body: 'IBM Plex Mono', monospace; /* Clean, readable monospace for text */
+    --font-emphasis: 'Cinzel', serif; /* Classic serif for solemn emphasis */
+}
+
+/* Base Styles */
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    color: var(--text-color);
+    background-color: var(--primary-bg);
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: background-color 1s ease-in-out; /* Smooth transition for breach state */
+}
+
+/* Background Matrix - for a deeper, textured background */
+.background-matrix {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('background.png'); /* A dark, complex, geometric/circuitry texture */
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.15) contrast(1.8) grayscale(0.8); /* Very dark, high contrast, desaturated */
+    opacity: 0.7;
+    z-index: -2;
+}
+
+/* Monolith Container - the central structure */
+.monolith-container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px; /* Increased spacing between main segments */
+    animation: revealMonolith 2s ease-out;
+    border: 1px solid var(--border-dark); /* Overall subtle border */
+    box-shadow: 0 0 50px var(--shadow-subtle); /* Deep shadow beneath the monolith */
+    background-color: var(--primary-bg); /* Explicit background for content area */
+    padding: 0; /* Remove padding from container itself */
+}
+
+@keyframes revealMonolith {
+    from { opacity: 0; transform: translateY(50px) scaleY(0.9); }
+    to { opacity: 1; transform: translateY(0) scaleY(1); }
+}
+
+/* Header - The Monolith Gateway */
+.monolith-header {
+    background-color: var(--secondary-bg);
+    border-bottom: 2px solid var(--border-light);
+    box-shadow: inset 0 -5px 15px rgba(0, 0, 0, 0.3);
+    padding: 30px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.header-seal {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-logo {
+    height: 70px; /* Larger, more imposing logo */
+    filter: drop-shadow(0 0 10px var(--accent-color));
+    animation: pulseGlow 5s infinite alternate ease-in-out;
+}
+
+@keyframes pulseGlow {
+    0% { filter: drop-shadow(0 0 10px var(--accent-color)); opacity: 0.9; }
+    50% { filter: drop-shadow(0 0 20px var(--accent-color)); opacity: 1; }
+    100% { filter: drop-shadow(0 0 10px var(--accent-color)); opacity: 0.9; }
+}
+
+.header-text {
+    text-align: left;
+}
+
+.protocol-name {
+    font-family: var(--font-heading);
+    font-size: 2.8em;
+    color: var(--accent-color);
+    margin: 0;
+    letter-spacing: 4px;
+    text-shadow: 0 0 15px var(--accent-color);
+}
+
+.protocol-subtitle {
+    font-family: var(--font-body);
+    font-size: 0.9em;
+    color: var(--text-color);
+    margin-top: 5px;
+    letter-spacing: 1.5px;
+    opacity: 0.7;
+}
+
+.header-actions {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.action-btn {
+    font-family: var(--font-body);
+    font-size: 0.85em;
+    padding: 12px 25px;
+    border-radius: 3px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap; /* Prevent breaking */
+}
+
+.connect-btn {
+    background-color: var(--accent-color);
+    color: var(--primary-bg);
+    border: none;
+    font-weight: bold;
+    box-shadow: 0 0 15px var(--glow-effect);
+}
+.connect-btn:hover {
+    background-color: #88DDFF;
+    box-shadow: 0 0 25px var(--glow-effect);
+}
+.connect-btn:disabled {
+    background-color: #333;
+    color: #777;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.social-btn {
+    background: none;
+    border: 1px solid var(--border-dark);
+    color: var(--text-color);
+    box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.05);
+}
+.social-btn:hover {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 10px var(--glow-effect);
+}
+
+.twitter-symbol {
+    font-size: 1.2em;
+    line-height: 1;
+    margin-right: 8px;
+}
+
+
+/* General Segment Styling - monolithic blocks */
+section {
+    background-color: var(--secondary-bg);
+    border: 1px solid var(--border-dark);
+    border-radius: 4px; /* Subtle radius */
+    padding: 40px;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    position: relative;
+}
+
+.segment-title {
+    font-family: var(--font-heading);
+    font-size: 1.8em;
+    color: var(--accent-color);
+    margin-top: 0;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px var(--glow-effect);
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 15px;
+    position: relative;
+    opacity: 0.9;
+}
+.segment-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -1px;
+    width: 80px;
+    height: 2px;
+    background-color: var(--accent-color);
+    box-shadow: 0 0 8px var(--glow-effect);
+}
+
+/* Protocol Monitor Segment */
+.protocol-monitor-segment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.monitor-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+}
+
+.monitor-display {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    padding: 25px 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    min-width: 250px;
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.03);
+}
+
+.display-label {
+    font-family: var(--font-body);
+    font-size: 0.85em;
+    color: var(--text-color);
+    opacity: 0.6;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.display-value {
+    font-family: var(--font-heading);
+    font-size: 3em;
+    font-weight: normal;
+    color: var(--accent-color);
+    text-shadow: 0 0 20px var(--glow-effect);
+    transition: color 0.5s ease, text-shadow 0.5s ease;
+}
+
+.value-floor {
+    color: #99FFFF; /* Lighter cyan for floor */
+    text-shadow: 0 0 15px rgba(153, 255, 255, 0.3);
+}
+
+.monitor-status {
+    width: 100%;
+    max-width: 600px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px dashed var(--border-dark);
+    padding: 15px 20px;
+    margin-top: 20px;
+}
+
+.status-indicator-text {
+    font-family: var(--font-body);
+    font-size: 1.1em;
+    color: var(--text-color);
+    opacity: 0.8;
+    letter-spacing: 0.8px;
+    min-height: 1.1em; /* Prevent layout shift */
+    display: block;
+}
+
+
+/* Protocol Event Alert - dramatic, urgent */
+.protocol-event-alert {
+    color: var(--danger-color);
+    font-family: var(--font-emphasis);
+    font-size: 1.6em;
+    font-weight: 700;
+    text-shadow: 0 0 25px var(--danger-glow);
+    animation: dangerPulse 1s infinite alternate;
+    margin-top: 40px;
+    background: rgba(255, 0, 0, 0.08); /* Subtle red tint */
+    border: 2px solid var(--danger-color);
+    padding: 25px;
+    border-radius: 4px;
+    box-shadow: 0 0 30px var(--danger-glow);
+}
+
+.protocol-event-alert p {
+    margin: 10px 0;
+    line-height: 1.5;
+    letter-spacing: 1px;
+}
+
+@keyframes dangerPulse {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0.8; transform: scale(1.02); }
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Oath Ledger Segment */
+.oath-ledger-segment {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.ledger-layout {
+    display: flex;
+    justify-content: space-around;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.ledger-category {
+    flex: 1;
+    min-width: 350px; /* Minimum width for columns */
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px dashed var(--border-dark);
+    border-radius: 4px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.02);
+}
+
+.category-heading {
+    font-family: var(--font-heading);
+    color: var(--accent-color);
+    font-size: 1.4em;
+    margin: 0;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 8px var(--glow-effect);
+    border-bottom: 1px solid rgba(102, 204, 255, 0.2);
+    padding-bottom: 12px;
+}
+
+.defection-column .category-heading {
+    color: var(--danger-color);
+    text-shadow: 0 0 8px var(--danger-glow);
+    border-bottom-color: rgba(255, 85, 85, 0.2);
+}
+
+.holder-manifest {
+    list-style: none;
+    padding: 0;
+    max-height: 400px; /* Scrollable list */
+    overflow-y: auto;
+    text-align: left;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 15px;
+    transition: all 0.5s ease;
+}
+
+/* Custom Scrollbar for Manifest */
+.holder-manifest::-webkit-scrollbar {
+    width: 5px;
+}
+.holder-manifest::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+}
+.holder-manifest::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 2px;
+    box-shadow: 0 0 5px var(--glow-effect);
+}
+.defection-column .holder-manifest::-webkit-scrollbar-thumb {
+    background: var(--danger-color);
+    box-shadow: 0 0 5px var(--danger-glow);
+}
+
+.holder-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 8px;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.03);
+    font-size: 0.9em;
+    font-family: var(--font-body);
+    transition: background-color 0.3s ease;
+}
+.holder-entry:last-child {
+    border-bottom: none;
+}
+.holder-entry:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.wallet-id {
+    color: var(--text-color);
+    opacity: 0.9;
+    letter-spacing: 0.5px;
+}
+
+.status-mark {
+    padding: 5px 12px;
+    border-radius: 3px;
+    font-size: 0.7em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.05);
+}
+
+.mark-loyal {
+    background-color: var(--accent-color);
+    color: var(--primary-bg);
+    box-shadow: 0 0 8px var(--glow-effect);
+}
+
+.mark-coward {
+    background-color: var(--danger-color);
+    color: var(--primary-bg);
+    box-shadow: 0 0 8px var(--danger-glow);
+}
+
+.my-wallet-highlight {
+    background-color: rgba(102, 204, 255, 0.1); /* Subtle highlight for user's wallet */
+    border: 1px solid var(--accent-color);
+    box-shadow: 0 0 15px var(--glow-effect);
+}
+
+.reward-data {
+    font-size: 0.7em;
+    color: #BBFFFF; /* Brighter cyan for rewards */
+    margin-left: 10px;
+    opacity: 0.8;
+}
+
+.ledger-timestamp {
+    font-family: var(--font-body);
+    font-size: 0.8em;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 30px;
+    letter-spacing: 0.5px;
+}
+
+/* Contract Tenets Segment */
+.contract-tenets-segment {
+    padding-bottom: 50px; /* Space for the button */
+}
+
+.tenets-content p {
+    font-family: var(--font-body);
+    font-size: 1em;
+    line-height: 1.7;
+    margin-bottom: 25px;
+    color: var(--text-color);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.8;
+    letter-spacing: 0.2px;
+}
+
+.read-contract-btn {
+    margin-top: 30px;
+    background: none;
+    border: 2px solid var(--accent-color);
+    color: var(--accent-color);
+    padding: 15px 35px;
+    border-radius: 4px;
+    font-family: var(--font-heading);
+    font-weight: normal; /* Override bold */
+    font-size: 0.9em;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px var(--glow-effect);
+    box-shadow: 0 0 15px var(--glow-effect), inset 0 0 10px rgba(102, 204, 255, 0.1);
+}
+.read-contract-btn:hover {
+    background-color: rgba(102, 204, 255, 0.1);
+    color: #BBFFFF;
+    box-shadow: 0 0 25px var(--glow-effect), inset 0 0 15px rgba(102, 204, 255, 0.2);
+}
+
+
+/* Floor Breached State - The entire monolith shifts */
+body.protocol-breached {
+    background-color: #201010; /* Darker, slightly reddish background */
+}
+body.protocol-breached .monolith-container {
+    border-color: var(--danger-color);
+    box-shadow: 0 0 80px var(--danger-glow);
+}
+body.protocol-breached .monolith-header {
+    border-bottom-color: var(--danger-color);
+    box-shadow: inset 0 -5px 15px rgba(255, 0, 0, 0.3);
+}
+body.protocol-breached .header-logo {
+    filter: drop-shadow(0 0 15px var(--danger-color)) saturate(1.8);
+}
+body.protocol-breached .protocol-name {
+    color: var(--danger-color);
+    text-shadow: 0 0 20px var(--danger-glow);
+}
+body.protocol-breached .connect-btn {
+    background-color: var(--danger-color);
+    box-shadow: 0 0 15px var(--danger-glow);
+}
+body.protocol-breached .connect-btn:hover {
+    background-color: #FF8888;
+    box-shadow: 0 0 25px var(--danger-glow);
+}
+body.protocol-breached .social-btn:hover {
+    color: var(--danger-color);
+    border-color: var(--danger-color);
+    box-shadow: 0 0 10px var(--danger-glow);
+}
+body.protocol-breached .segment-title {
+    color: var(--danger-color);
+    text-shadow: 0 0 15px var(--danger-glow);
+    border-bottom-color: var(--danger-color);
+}
+body.protocol-breached .segment-title::after {
+    background-color: var(--danger-color);
+    box-shadow: 0 0 10px var(--danger-glow);
+}
+body.protocol-breached .display-value.value-live {
+    color: var(--danger-color);
+    text-shadow: 0 0 25px var(--danger-glow);
+}
+body.protocol-breached .read-contract-btn {
+    border-color: var(--danger-color);
+    color: var(--danger-color);
+    text-shadow: 0 0 10px var(--danger-glow);
+    box-shadow: 0 0 15px var(--danger-glow), inset 0 0 10px rgba(255, 85, 85, 0.1);
+}
+body.protocol-breached .read-contract-btn:hover {
+    background-color: rgba(255, 85, 85, 0.1);
+    color: #FFBBBB;
+    box-shadow: 0 0 25px var(--danger-glow), inset 0 0 15px rgba(255, 85, 85, 0.2);
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .monolith-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    .header-seal {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .header-text {
+        text-align: center;
+    }
+    .protocol-name {
+        font-size: 2.2em;
+    }
+    .protocol-subtitle {
+        font-size: 0.8em;
+    }
+    .header-actions {
+        justify-content: center;
+        width: 100%;
+    }
+    .monitor-grid {
+        flex-direction: column;
+        gap: 25px;
+    }
+    .monitor-display {
+        width: 100%;
+        max-width: 350px;
+        min-width: unset;
+    }
+    .ledger-layout {
+        flex-direction: column;
+        gap: 30px;
+    }
+    .ledger-category {
+        min-width: unset;
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    .monolith-container {
+        gap: 30px;
+    }
+    .monolith-header {
+        padding: 20px;
+    }
+    .header-logo {
+        height: 50px;
+    }
+    .protocol-name {
+        font-size: 1.8em;
+        letter-spacing: 2px;
+    }
+    .protocol-subtitle {
+        font-size: 0.7em;
+    }
+    .action-btn {
+        font-size: 0.75em;
+        padding: 10px 15px;
+    }
+    section {
+        padding: 25px 15px;
+    }
+    .segment-title {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+        letter-spacing: 1.5px;
+    }
+    .display-value {
+        font-size: 2.2em;
+    }
+    .protocol-event-alert {
+        font-size: 1.2em;
+        padding: 15px;
+    }
+    .protocol-event-alert p {

@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Still Here Contract</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+        
+        :root {
+            --stone: #8a795d;
+            --shadow: #2a2a2a;
+            --light: #f5f3f0;
+            --bronze: #b08d57;
+            --void: #1a1a1a;
+            --loyal: #4a6572;
+            --coward: #8b4513;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--void);
+            color: var(--light);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .monument {
+            max-width: 900px;
+            width: 100%;
+        }
+        
+        /* Wallet List */
+        .wallet-list {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(42, 42, 42, 0.9);
+            border: 1px solid var(--stone);
+            border-radius: 8px;
+            padding: 1rem;
+            width: 250px;
+            z-index: 100;
+        }
+        
+        .wallet-title {
+            font-weight: 500;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--stone);
+            padding-bottom: 0.5rem;
+        }
+        
+        .wallet-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(138, 121, 93, 0.2);
+        }
+        
+        .wallet-item:last-child {
+            border-bottom: none;
+        }
+        
+        .wallet-address {
+            font-family: monospace;
+            font-size: 0.8rem;
+        }
+        
+        .wallet-balance {
+            font-size: 0.8rem;
+            color: var(--loyal);
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--stone);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .logo-container {
+            margin-bottom: 1rem;
+        }
+        
+        .logo {
+            width: 120px;
+            height: auto;
+            border-radius: 8px;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 2px;
+            background: var(--bronze);
+        }
+        
+        .title {
+            font-weight: 400;
+            font-size: 2.5rem;
+            letter-spacing: 8px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        
+        .subtitle {
+            font-weight: 300;
+            font-size: 1rem;
+            color: var(--stone);
+            letter-spacing: 2px;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--stone);
+            color: var(--light);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+        
+        .btn:hover {
+            border-color: var(--bronze);
+            color: var(--bronze);
+        }
+        
+        /* Floor Tracker */
+        .floor-tracker {
+            margin-bottom: 4rem;
+        }
+        
+        .tracker-title {
+            font-weight: 400;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        .price-display {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+        
+        .price-box {
+            flex: 1;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+        
+        .price-label {
+            font-size: 0.9rem;
+            color: var(--stone);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+        
+        .price-value {
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+        
+        .divider {
+            width: 1px;
+            background: var(--stone);
+            margin: 0 2rem;
+        }
+        
+        .status {
+            text-align: center;
+            padding: 1.5rem;
+            border-top: 1px solid var(--stone);
+            border-bottom: 1px solid var(--stone);
+            font-size: 0.9rem;
+            color: var(--stone);
+            letter-spacing: 1px;
+        }
+        
+        .snapshot {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+            display: none;
+        }
+        
+        .snapshot.active {
+            display: block;
+            animation: fadeIn 1s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .snapshot-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+        }
+        
+        .snapshot-text {
+            color: var(--stone);
+        }
+        
+        /* Holder Board */
+        .holder-board {
+            margin-bottom: 4rem;
+        }
+        
+        .board-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--stone);
+        }
+        
+        .board-title {
+            font-weight: 400;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        .timer {
+            font-size: 0.9rem;
+            color: var(--stone);
+        }
+        
+        .holder-lists {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .holder-lists {
+                grid-template-columns: 1fr;
+            }
+            
+            .wallet-list {
+                position: relative;
+                top: 0;
+                right: 0;
+                width: 100%;
+                margin-bottom: 2rem;
+            }
+        }
+        
+        .holder-category {
+            border: 1px solid var(--stone);
+            padding: 1.5rem;
+        }
+        
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--stone);
+        }
+        
+        .category-title {
+            font-weight: 400;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+        }
+        
+        .loyal .category-title {
+            color: var(--loyal);
+        }
+        
+        .coward .category-title {
+            color: var(--coward);
+        }
+        
+        .badge {
+            padding: 0.3rem 0.8rem;
+            font-size: 0.8rem;
+            border: 1px solid;
+        }
+        
+        .loyal .badge {
+            border-color: var(--loyal);
+            color: var(--loyal);
+        }
+        
+        .coward .badge {
+            border-color: var(--coward);
+            color: var(--coward);
+        }
+        
+        .holder-list {
+            list-style: none;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .holder-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(138, 121, 93, 0.2);
+        }
+        
+        .holder-item:last-child {
+            border-bottom: none;
+        }
+        
+        .address {
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        
+        .reward {
+            font-size: 0.8rem;
+            color: var(--loyal);
+        }
+        
+        /* Contract Law */
+        .contract-law {
+            text-align: center;
+            padding: 3rem 2rem;
+            border: 1px solid var(--stone);
+            margin-bottom: 2rem;
+        }
+        
+        .law-title {
+            font-weight: 400;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        .law-text {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            color: var(--stone);
+            line-height: 1.8;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--stone);
+            width: 100%;
+            color: var(--stone);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        
+        /* Minimal animations */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Wallet List -->
+    <div class="wallet-list">
+        <h3 class="wallet-title">SOL Wallets</h3>
+        <div class="wallet-item">
+            <span class="wallet-address">5YJ...8Hd</span>
+            <span class="wallet-balance">1.232 SOL</span>
+        </div>
+        <div class="wallet-item">
+            <span class="wallet-address">7Xk...2Mn</span>
+            <span class="wallet-balance">0.23 SOL</span>
+        </div>
+        <div class="wallet-item">
+            <span class="wallet-address">9Tq...5Rp</span>
+            <span class="wallet-balance">12.33 SOL</span>
+        </div>
+        <div class="wallet-item">
+            <span class="wallet-address">3Fv...6Ls</span>
+            <span class="wallet-balance">21 SOL</span>
+        </div>
+    </div>
+    
+    <div class="monument">
+        <header class="header">
+            <div class="logo-container">
+                <!-- Replace with your actual logo path -->
+                <img src="s.png" alt="Still Here Logo" class="logo">
+            </div>
+            <h1 class="title">Still Here</h1>
+            <p class="subtitle">Hold the line or be remembered as coward</p>
+            <div class="controls">
+                <a href="https://x.com/StillHereContract" class="btn" target="_blank">Twitter</a>
+                <button class="btn connect-wallet">Connect Wallet</button>
+            </div>
+        </header>
+        
+        <section class="floor-tracker">
+            <h2 class="tracker-title">The Floor</h2>
+            <div class="price-display">
+                <div class="price-box">
+                    <div class="price-label">Current Price</div>
+                    <div class="price-value" id="current-price">5,000</div>
+                </div>
+                <div class="divider"></div>
+                <div class="price-box">
+                    <div class="price-label">Floor Level</div>
+                    <div class="price-value" id="floor-price">4,700</div>
+                </div>
+            </div>
+            <div class="status" id="status">
+                System monitoring • Floor: 4,700 | Current: 5,000
+            </div>
+            <div class="snapshot" id="snapshot">
+                <h3 class="snapshot-title">SNAPSHOT TRIGGERED</h3>
+                <p class="snapshot-text">Loyal holders identified • Rewards distributed</p>
+            </div>
+        </section>
+        
+        <section class="holder-board">
+            <div class="board-header">
+                <h2 class="board-title">Who's Still Here</h2>
+                <div class="timer" id="timer">Updated: <span id="last-update">Just now</span></div>
+            </div>
+            <div class="holder-lists">
+                <div class="holder-category loyal">
+                    <div class="category-header">
+                        <h3 class="category-title">Loyal</h3>
+                        <span class="badge">Holding</span>
+                    </div>
+                    <ul class="holder-list" id="loyal-holders">
+                        <!-- Loyal holders populated by JS -->
+                    </ul>
+                </div>
+                <div class="holder-category coward">
+                    <div class="category-header">
+                        <h3 class="category-title">Cowards</h3>
+                        <span class="badge">Exited</span>
+                    </div>
+                    <ul class="holder-list" id="coward-holders">
+                        <!-- Coward holders populated by JS -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section class="contract-law">
+            <h2 class="law-title">The Contract</h2>
+            <div class="law-text">
+                <p>When price reaches the defined floor, a snapshot is executed.</p>
+                <p>All wallets still holding receive their share of the reward.</p>
+                <p>Every wallet that sold beforehand is permanently marked.</p>
+                <p>The record is immutable and publicly viewable.</p>
+            </div>
+            <button class="btn read-contract">Read Contract</button>
+        </section>
+        
+        <footer class="footer">
+            <p>Still Here Contract • All transactions are final and immutable</p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize data
+        let currentPrice = 5000;
+        const floorPrice = 4700;
+        let snapshotTriggered = localStorage.getItem('snapshotTriggered') === 'true';
+        let lastUpdateTime = localStorage.getItem('lastUpdateTime') || Date.now();
+        
+        // Sample holder data
+        let holders = [
+            { address: '9F3a...7C4A', status: 'loyal', balance: 1200, reward: 0 },
+            { address: '8A7c...1E2B', status: 'coward', balance: 0, reward: 0 },
+            { address: '5B2e...9D1F', status: 'loyal', balance: 850, reward: 0 },
+            { address: '3C8a...4E6A', status: 'loyal', balance: 2100, reward: 0 },
+            { address: '7D1b...2B9C', status: 'coward', balance: 0, reward: 0 },
+            { address: '1A4f...8F3D', status: 'loyal', balance: 500, reward: 0 },
+            { address: '6E9c...5C2A', status: 'loyal', balance: 1750, reward: 0 },
+            { address: '2F7d...1D8B', status: 'coward', balance: 0, reward: 0 }
+        ];
+        
+        // Load data from localStorage if available
+        if (localStorage.getItem('holders')) {
+            holders = JSON.parse(localStorage.getItem('holders'));
+        }
+        
+        // DOM elements
+        const currentPriceElement = document.getElementById('current-price');
+        const statusElement = document.getElementById('status');
+        const snapshotElement = document.getElementById('snapshot');
+        const loyalHoldersElement = document.getElementById('loyal-holders');
+        const cowardHoldersElement = document.getElementById('coward-holders');
+        const lastUpdateElement = document.getElementById('last-update');
+        const connectWalletButton = document.querySelector('.connect-wallet');
+        const readContractButton = document.querySelector('.read-contract');
+        
+        // Update holder lists
+        function updateHolderLists() {
+            // Clear current lists
+            loyalHoldersElement.innerHTML = '';
+            cowardHoldersElement.innerHTML = '';
+            
+            // Populate loyal holders
+            const loyalHolders = holders.filter(holder => holder.status === 'loyal');
+            loyalHolders.forEach(holder => {
+                const li = document.createElement('li');
+                li.className = 'holder-item';
+                li.innerHTML = `
+                    <span class="address">${holder.address}</span>
+                    ${holder.reward > 0 ? `<span class="reward">+${holder.reward.toFixed(0)} SOL</span>` : ''}
+                `;
+                loyalHoldersElement.appendChild(li);
+            });
+            
+            // Populate coward holders
+            const cowardHolders = holders.filter(holder => holder.status === 'coward');
+            cowardHolders.forEach(holder => {
+                const li = document.createElement('li');
+                li.className = 'holder-item';
+                li.innerHTML = `
+                    <span class="address">${holder.address}</span>
+                `;
+                cowardHoldersElement.appendChild(li);
+            });
+        }
+        
+        // Update price and check for floor breach
+        function updatePrice() {
+            // Simulate price fluctuation like a memecoin
+            const fluctuation = (Math.random() - 0.5) * 600; // Fluctuate up to 300 in either direction
+            currentPrice = Math.max(4700, Math.min(5300, currentPrice + fluctuation));
+            
+            // Update display
+            currentPriceElement.textContent = currentPrice.toLocaleString();
+            statusElement.textContent = `System monitoring • Floor: ${floorPrice.toLocaleString()} | Current: ${currentPrice.toLocaleString()}`;
+            
+            // Check for floor breach
+            if (!snapshotTriggered && currentPrice <= floorPrice) {
+                triggerSnapshot();
+            }
+            
+            // Randomly change some holder statuses (simulating selling)
+            if (!snapshotTriggered && Math.random() < 0.1) {
+                const loyalHolders = holders.filter(holder => holder.status === 'loyal');
+                if (loyalHolders.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * loyalHolders.length);
+                    loyalHolders[randomIndex].status = 'coward';
+                    loyalHolders[randomIndex].balance = 0;
+                    updateHolderLists();
+                    saveToLocalStorage();
+                }
+            }
+            
+            // Update last update time
+            lastUpdateTime = Date.now();
+            localStorage.setItem('lastUpdateTime', lastUpdateTime);
+            updateTimerDisplay();
+        }
+        
+        // Trigger snapshot event
+        function triggerSnapshot() {
+            snapshotTriggered = true;
+            localStorage.setItem('snapshotTriggered', 'true');
+            
+            // Show snapshot event
+            snapshotElement.classList.add('active');
+            
+            // Distribute rewards to loyal holders
+            const loyalHolders = holders.filter(holder => holder.status === 'loyal');
+            const totalReward = 1000; // Arbitrary reward amount
+            
+            loyalHolders.forEach(holder => {
+                // Reward proportional to balance
+                const share = holder.balance / loyalHolders.reduce((sum, h) => sum + h.balance, 0);
+                holder.reward = totalReward * share;
+            });
+            
+            // Update display
+            updateHolderLists();
+            saveToLocalStorage();
+            
+            // Keep snapshot visible
+        }
+        
+        // Update timer display
+        function updateTimerDisplay() {
+            const now = Date.now();
+            const diff = now - lastUpdateTime;
+            const seconds = Math.floor(diff / 1000);
+            
+            if (seconds < 10) {
+                lastUpdateElement.textContent = 'Just now';
+            } else if (seconds < 60) {
+                lastUpdateElement.textContent = `${seconds} seconds ago`;
+            } else {
+                const minutes = Math.floor(seconds / 60);
+                lastUpdateElement.textContent = `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+            }
+        }
+        
+        // Save data to localStorage
+        function saveToLocalStorage() {
+            localStorage.setItem('holders', JSON.stringify(holders));
+        }
+        
+        // Connect wallet placeholder
+        connectWalletButton.addEventListener('click', () => {
+            alert('Wallet connection would be implemented here with Solana wallet adapter');
+        });
+        
+        // Read contract placeholder
+        readContractButton.addEventListener('click', () => {
+            alert('Contract explorer would open here');
+        });
+        
+        // Initialize the page
+        function init() {
+            updateHolderLists();
+            updatePrice();
+            updateTimerDisplay();
+            
+            if (snapshotTriggered) {
+                snapshotElement.classList.add('active');
+            }
+            
+            // Update price every 3 seconds
+            setInterval(updatePrice, 3000);
+            
+            // Update timer every second
+            setInterval(updateTimerDisplay, 1000);
+        }
+        
+        // Start the application
+        init();
+    </script>
+</body>
+</html>
